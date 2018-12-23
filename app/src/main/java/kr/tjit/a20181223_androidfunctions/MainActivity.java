@@ -1,11 +1,13 @@
 package kr.tjit.a20181223_androidfunctions;
 
+import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.view.View;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
@@ -15,6 +17,8 @@ public class MainActivity extends BaseActivity {
     private android.widget.Button logoutBtn;
     private android.widget.TextView timeTxt;
     private Button timePickerBtn;
+    private TextView dateTxt;
+    private Button datePickerBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,6 +71,26 @@ public class MainActivity extends BaseActivity {
 
             }
         });
+
+        datePickerBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                DatePickerDialog.OnDateSetListener odsl = new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+
+                        String selectedDate = String.format("%d년 %d월 %d일", year, month, dayOfMonth);
+                        dateTxt.setText(selectedDate);
+
+                    }
+                };
+
+                DatePickerDialog dpd = new DatePickerDialog(mContext, odsl, 2018, 11, 23);
+                dpd.show();
+            }
+        });
+
     }
 
     @Override
@@ -77,7 +101,9 @@ public class MainActivity extends BaseActivity {
     @Override
     public void bindViews() {
         this.timePickerBtn = (Button) findViewById(R.id.timePickerBtn);
+        this.datePickerBtn = (Button) findViewById(R.id.datePickerBtn);
         this.timeTxt = (TextView) findViewById(R.id.timeTxt);
+        this.dateTxt = (TextView) findViewById(R.id.dateTxt);
         this.logoutBtn = (Button) findViewById(R.id.logoutBtn);
     }
 }
